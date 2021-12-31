@@ -48,10 +48,12 @@ print(Fore.GREEN + Style.DIM + "creating ..." + Style.RESET_ALL)
 AutoriteConfiance.set_all_certificats()
 
 # start the procedure of verification the certificates of three servers: Admin, Serveur, Enregistrement
+
 # 1. send all the certificates to the three servers
 Administration.set_certificate(AutoriteConfiance.send_publicKey_admin())
 Serveur.set_certificate(AutoriteConfiance.send_publicKey_serveur())
 Enregistrement.set_certificate(AutoriteConfiance.send_publicKey_enregistrement())
+
 # 2. the user need to receive all the certificates of the three servers
 print(Fore.GREEN + Style.BRIGHT + "Now begins to verify all the servers used in this election" + Style.RESET_ALL)
 certificate_admin = Administration.send_certificate()
@@ -60,6 +62,7 @@ certificate_enregistrement = Enregistrement.send_certificate()
 AutoriteConfiance.check_certificate_admin(certificate_admin)
 AutoriteConfiance.check_certificate_serveur(certificate_serveur)
 AutoriteConfiance.check_certificate_enregistrement(certificate_enregistrement)
+
 # 3. Generate all the private key and the global public key of the Trustee
 Trustee.generate_keys()
 print(Fore.GREEN + Style.BRIGHT + "Trustees are on their positions (Keys have been created !)" + Style.RESET_ALL)
@@ -68,7 +71,7 @@ print(Fore.GREEN + Style.BRIGHT + "Trustees are on their positions (Keys have be
 print(Fore.BLUE + Style.BRIGHT + "Bonjour ô maître! Comme puis-je aider votre Sainteté ?" + Style.RESET_ALL)
 # need to create the first voter to start to others phases
 # as we concerned, this election will return the Cn and Pub(Cn) to each voter, so as we are on the only side of
-#  this election, for the moment, we will allow one voter to be created.
+# this election, for the moment, we will allow one voter to be created.
 print(Fore.BLUE + Style.BRIGHT + "You have to register first yourself as a voter" + Style.RESET_ALL)
 voter_this = register_un_electer()
 voters.append(voter_this)
@@ -86,13 +89,16 @@ voters = Trustee.get_voters()
 # Phase 1 : Mise en place d’une élection
 Administration.initialElect()
 [voter_this_cn, voter_this_pub_cn] = Enregistrement.sendCn_to_voter(voter_this)
-print(Fore.RED + Style.BRIGHT + 'You has got your Cn ' + str(voter_this_cn) + Style.RESET_ALL)
-print(Fore.RED + Style.BRIGHT + 'You has got your Pub(Cn) ' + str(voter_this_pub_cn) + Style.RESET_ALL)
+voter_this_cn = return_string(voter_this_cn)
+voter_this_pub_cn = return_string(voter_this_pub_cn)
+print(Fore.RED + Style.BRIGHT + 'You has got your Cn ' + voter_this_cn + Style.RESET_ALL)
+print(Fore.RED + Style.BRIGHT + 'You has got your Pub(Cn) ' + voter_this_pub_cn + Style.RESET_ALL)
 
 # 4. Le serveur E envoie à chacun des utilisateurs Vn son identifiant cn
 for voter in voters[1:]:
-    voterTemp = Enregistrement.sendCn_to_voter(voter)[0]
-    print(Fore.RED + Style.DIM + voter.nom + ' has got his Cn ' + str(voterTemp) + Style.RESET_ALL)
+    cn_encrypted = Enregistrement.sendCn_to_voter(voter)[0]
+    cn_temp = return_string(cn_encrypted)
+    print(Fore.RED + Style.DIM + voter.nom + ' has got his Cn ' + str(cn_temp) + Style.RESET_ALL)
 
 # 5. Le serveur E envoie la liste des codes de vote L = shuffle (Pub(c1); : : : Pub(cN)) au serveur A
 Enregistrement.generate_lists()

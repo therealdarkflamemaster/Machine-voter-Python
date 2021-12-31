@@ -5,6 +5,7 @@ from colorama import Style
 from Algorithme.Shuffle import shuffle
 from Chiffrrement.Credential import Credential
 import Chiffrrement.ElGamal as elgamal
+from Chiffrrement.BlowFish import input_string, return_string
 
 
 def singleton(classe):
@@ -53,7 +54,6 @@ class Enregistrement:
         return crediential.generate_pubcn(x.cn, x.uuid)
 
     def generate_cn_pubCn(self):
-        # 遍历赋值
         self.info_voters["cn"] = self.info_voters.apply(self.generate_intern_cn, axis=1)
         self.info_voters["Pub(cn)"] = self.info_voters.apply(self.generate_pub_cn, axis=1)
 
@@ -72,7 +72,10 @@ class Enregistrement:
                 voter.set_cn(info_voter[1][4])
                 # info_voter[1][4] is the para of Pub(Cn)
                 voter.set_pub_cn(info_voter[1][5])
-                return [info_voter[1][4], info_voter[1][5]]
+                # encryte the message with BlowFish
+                cn_encrypted = input_string(info_voter[1][4])
+                pubcn_encrypted = input_string(info_voter[1][5])
+                return [cn_encrypted, pubcn_encrypted]
 
     def generate_lists(self):
         self.pubCns = self.info_voters["Pub(cn)"].values.tolist()

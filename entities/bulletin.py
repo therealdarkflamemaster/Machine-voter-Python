@@ -10,7 +10,6 @@ from Chiffrrement.pythonSHA256 import generate_hash
 class Bulletin:
     election_id = "ELECTION-GS15-A21-LSX-ZXY"
     uuid = ""
-    pub_cn = ""
     cn = ""
     choice_chiffre = ""
     zero_knowledge_proof = ""
@@ -19,20 +18,19 @@ class Bulletin:
     resp = 0
     A = 0
 
-    def __init__(self, pub_cn, cn, uuid, choice_chiffre):
-        self.pub_cn = pub_cn
+    def __init__(self, cn, uuid, choice_chiffre):
         self.cn = cn
         self.uuid = uuid
         self.choice_chiffre = choice_chiffre
 
-    def generate_zero_knowledge_proof(self):
+    def generate_zero_knowledge_proof(self, pub_cn):
         # follows the instructions of the new version (generate the Zero Knowledge Proof)
         w = random.randint(1, (prime_bulletin - 1) // 2)
         A = fastExpMod(g_bulletin, w, prime_bulletin)
         # need to take part of cn, or the result will be influenced by the limit of Number in python
         cn = self.cn.encode('ASCII')[:10]
         # S = Pub(Cn)
-        S = self.pub_cn
+        S = pub_cn
         M = '||'
         message = str(S) + M + str(A)
         self.A = A

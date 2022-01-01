@@ -50,11 +50,11 @@ class Serveur:
         print(Fore.GREEN + Style.DIM + "Server S get all infos in phase 1" + Style.RESET_ALL)
 
     def check_bulletin_and_add(self, voter_this_pub_cn, voter_this_cn, uuid, choice_chiffre):
-        bulletin_temp = Bulletin(return_string(voter_this_pub_cn), return_string(voter_this_cn), return_string(uuid),
+        bulletin_temp = Bulletin(return_string(voter_this_cn), return_string(uuid),
                                  return_string(choice_chiffre))
         # Le bulletin contient également une signature qui fait office de zero-knowledge proof permettant de prouver
         # que le bulletin a été rempli et signé par celui qui connait cn
-        bulletin_temp.generate_zero_knowledge_proof()
+        bulletin_temp.generate_zero_knowledge_proof(return_string(voter_this_pub_cn))
         # le serveur de vote verifie la validite du vote
         # 1. le code existe dans la liste
         # 2. en demandant la preuve de la connaissance de Cn
@@ -84,8 +84,7 @@ class Serveur:
         # need to take part of chal, or the result will be influenced by the limit of Number in python
         chal_temp = generate_hash(message)[:10]
         chal_value_temp = int.from_bytes(chal_temp, "big") % prime_bulletin
-        ##########################################################################################################
-        ################################# "The 'user' seems do not know his Cn"
+        
         if chal_value_temp == chal_value:
             self.list_bulletin.append(bulletin_temp)
             return "Add bulletin successfully"

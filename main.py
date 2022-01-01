@@ -105,7 +105,6 @@ Enregistrement.generate_lists()
 Administration.get_list(Enregistrement.send_list())
 
 # 6. Le serveur A demande aux utilisateurs chargé du dépouillement Ti de lui communiquer une clé publique ai.
-## 还没有做，需要得到 Vi - Vn 的 公钥和私钥以后再说
 Administration.ask_for_key_public()
 
 # 7. Les données de l’élection D sont entrées dans le serveur A ;
@@ -121,8 +120,7 @@ print(Fore.MAGENTA + Style.BRIGHT + "<---------------------INFO ELECTION--------
 info_D = Administration.get_election_D()
 for key in info_D:
     if isinstance(info_D[key], list):
-        print(Fore.MAGENTA + Style.DIM + key, " : ")
-        print(str(info_D[key]), end='\r')
+        print(Fore.MAGENTA + Style.DIM + key, " : " + str(info_D[key]) + Style.RESET_ALL)
     elif isinstance(info_D[key], str):
         print(Fore.MAGENTA + Style.DIM + key, " : ", info_D[key] + Style.RESET_ALL)
     elif isinstance(info_D[key], dict):
@@ -138,7 +136,7 @@ print(Fore.MAGENTA + Style.BRIGHT + "<------------------------------------------
 # variable boolean to know whether the user has made his or her final choice
 choice_2 = False
 
-# generate the list of uuids
+# generate the list of uuids, with the propose of mapping the user afterwards
 infos = Administration.get_all_infos_voters()
 uuids = infos["uuid"].tolist()
 
@@ -150,6 +148,8 @@ def register_other_votes(candidates_names):
     count = 1
     for voter_temp in voters[1:]:
         [voter_cn, voter_pub_cn] = Enregistrement.sendCn_to_voter(voter_temp)
+        voter_cn = return_string(voter_cn)
+        voter_pub_cn = return_string(voter_pub_cn)
         choix = random.randint(0, 1)
         choice_temp = register_a_final_vote(candidates_names, choix, voter_pub_cn, uuids[count], voter_cn, publicKey)
         count += 1
@@ -182,8 +182,6 @@ while True:
 
         publicKey = Trustee.send_public_key()
         choice_final = register_a_vote(candidates_names, choix, voter_this_pub_cn, publicKey, uuids[0], voter_this_cn)
-        # 比较偏向于 Serveur利用全部的bulletins来计票，而不是在外面统计
-        candidates[candidates_names[choice_final]] += 1
         choice_2 = True
         # register the votes results of other computers voters
         register_other_votes(candidates_names)
@@ -216,8 +214,7 @@ while True:
             info_D = Serveur.phase_depouillement()
             for key in info_D:
                 if isinstance(info_D[key], list):
-                    print(Fore.MAGENTA + Style.DIM + key, " : ")
-                    print(str(info_D[key]), end='\r')
+                    print(Fore.MAGENTA + Style.DIM + key, " : " + str(info_D[key]) + Style.RESET_ALL)
                 elif isinstance(info_D[key], str):
                     print(Fore.MAGENTA + Style.DIM + key, " : ", info_D[key] + Style.RESET_ALL)
                 elif isinstance(info_D[key], dict):

@@ -70,12 +70,12 @@ class Administration:
         self.key_public = Trustee.generate_key_public()
 
     def generate_election_D(self, candidates_names):
-        election_nom = "#Election name#"
+        election_nom = "ELECTION-GS15-A21-LSX-ZXY"
         times = [datetime.date.today()]
         self.info_D = {
             "election_name": election_nom,
             "candidates": candidates_names,
-            "times": times,
+            "times": str(times),
             "public_key": str(self.key_public.p) + " " + str(self.key_public.g) + str(self.key_public.h),
             "list": self.list_pubCn[:3],
             "buttetins": [],

@@ -7,7 +7,7 @@ import Chiffrrement.ElGamal as elgamal
 from entities.bulletin import Bulletin
 from Chiffrrement.BlowFish import input_string, return_string
 from Chiffrrement.groupe import prime_bulletin, g_bulletin
-from Algorithme.FastPower import pow_mod, myPow, fastExpMod
+from Algorithme.FastPower import pow_mod, fastExpMod
 from Chiffrrement.pythonSHA256 import generate_hash
 
 Trustee = Trustee()

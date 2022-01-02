@@ -10,7 +10,7 @@ from Chiffrrement.pythonSHA256 import generate_hash
 import datetime
 import Chiffrrement.ElGamal as elgamal
 from Chiffrrement.groupe import prime_bulletin, g_bulletin
-from Algorithme.FastPower import pow_mod, myPow, fastExpMod
+from Algorithme.FastPower import pow_mod, fastExpMod
 
 
 Trustee = Trustee()

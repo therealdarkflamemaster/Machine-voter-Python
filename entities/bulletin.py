@@ -2,7 +2,7 @@ import colorama
 from colorama import Fore
 from colorama import Style
 from Chiffrrement.groupe import prime_bulletin, g_bulletin
-from Algorithme.FastPower import pow_mod, myPow, fastExpMod
+from Algorithme.FastPower import pow_mod, fastExpMod
 import random
 from Chiffrrement.pythonSHA256 import generate_hash
 

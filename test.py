@@ -37,7 +37,7 @@ import tkinter
 
 import Chiffrrement.ElGamal as elgamal
 from Chiffrrement.groupe import q, g
-from Algorithme.FastPower import pow_mod, myPow, fastExpMod
+from Algorithme.FastPower import pow_mod, fastExpMod
 import random
 from Chiffrrement.pythonSHA256 import generate_hash
 # keys = elgamal.generate_keys()
@@ -81,7 +81,8 @@ B = b1 * b2 % prime_alea
 print(B)
 print(B == A)
 print(fastExpMod(g, (resp + chal_value * cn_value % prime_alea), prime_alea) == A)
-
+"""
 print(myPow(2, 50, prime_alea) * myPow(2, 50, prime_alea) == myPow(2, 100, prime_alea))  # False
 # 艹，pow_mod 是错的
 print(fastExpMod(2, 50, prime_alea) * fastExpMod(2, 50, prime_alea) == fastExpMod(2, 100, prime_alea))   # True
+"""

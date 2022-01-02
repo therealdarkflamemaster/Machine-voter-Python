@@ -1,8 +1,8 @@
 # this file (class) is used to create the Cn and the related Pub(Cn)
 from Algorithme.Shuffle import shuffle
 from Chiffrrement.PBKDF2 import pbkdf2
-from Chiffrrement.groupe import g, q
-from Algorithme.FastPower import pow_mod
+from Chiffrrement.groupe import g, q, p
+from Algorithme.FastPower import pow_mod, fastExpMod
 
 
 class Credential:
@@ -67,7 +67,7 @@ class Credential:
         """
         a = pbkdf2(c, salt, dklen)
         a = int.from_bytes(a, "big")
-        q_int = int(q)
-        s = a % q_int
-        self.pubcn = hex(pow_mod(g, s, q_int))
+        p_int = int(p)
+        s = a % p_int
+        self.pubcn = hex(fastExpMod(g, s, p_int))
         return self.pubcn

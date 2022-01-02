@@ -1,4 +1,4 @@
-# T1,...,TI : sont les i utilisateurs de confiance chargées du dépouillement. 负责点票的用户
+# T1,...,TI : sont les i utilisateurs de confiance chargées du dépouillement. 
 import pandas as pd
 import colorama
 from colorama import Fore
@@ -6,7 +6,6 @@ from colorama import Style
 import random
 import Chiffrrement.ElGamal as elgamal
 from Chiffrrement.groupe import q, g
-from Algorithme.FastPower import pow_mod
 
 
 def singleton(classe):

@@ -1,8 +1,8 @@
 # this file (class) is used to create the Cn and the related Pub(Cn)
 from Algorithme.Shuffle import shuffle
 from Chiffrrement.PBKDF2 import pbkdf2
-from Chiffrrement.groupe import g, q, p
-from Algorithme.FastPower import pow_mod, fastExpMod
+from Chiffrrement.groupe import g, p
+from Algorithme.FastPower import fastExpMod
 
 
 class Credential:

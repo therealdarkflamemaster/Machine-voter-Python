@@ -13,9 +13,7 @@ K = [
 
 
 def generate_hash(message: bytearray) -> bytearray:
-    """Return a SHA-256 hash from the message passed.
-    The argument should be a bytes, bytearray, or
-    string object."""
+    """Return a SHA-256 hash from the message passed."""
 
     if isinstance(message, str):
         message = bytearray(message, 'ascii')
@@ -26,7 +24,7 @@ def generate_hash(message: bytearray) -> bytearray:
 
     # Padding
     length = len(message) * 8
-    # len(message) is number of BYTES!!!
+    # len(message) is number of bytes
     message.append(0x80)
     while (len(message) * 8 + 64) % 512 != 0:
         message.append(0x00)

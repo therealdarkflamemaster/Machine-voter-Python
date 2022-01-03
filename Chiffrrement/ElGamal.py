@@ -276,7 +276,6 @@ def decrypt(key, cipher):
 
 
 def test():
-    assert (sys.version_info >= (3, 4))
     keys = generate_keys()
     priv = keys['privateKey']
     pub = keys['publicKey']
